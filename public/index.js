@@ -3,6 +3,7 @@ const button = document.getElementById("sendButton");
 const chat = document.getElementById("chat");
 const input_nome = document.getElementById("input_nome");
 const button_nome = document.getElementById("sendButton_nome");
+const output = document.getElementById("output");
 
 const template = "<li class=\"list-group-item\">%MESSAGE</li>";
 const messages = [];
@@ -46,6 +47,11 @@ socket.on("chat", (message) => {
   render();
 })
 
+socket.on("render_user", (message) => {
+    console.log(message);
+    render_2(message)
+  })
+
 const render = () => {
   let html = "";
   messages.forEach((message) => {
@@ -54,4 +60,14 @@ const render = () => {
   });
   chat.innerHTML = html;
   window.scrollTo(0, document.body.scrollHeight);
+}
+
+
+const render_2 = (message) =>{
+    let html = "User: \n";
+    message.forEach((mess) => {
+        const row = template.replace("%MESSAGE", mess);
+        html+=row;
+      });
+      output.innerHTML = html;
 }
