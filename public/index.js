@@ -1,11 +1,31 @@
 const input = document.getElementById("input");
 const button = document.getElementById("sendButton");
 const chat = document.getElementById("chat");
+const input_nome = document.getElementById("input_nome");
+const button_nome = document.getElementById("sendButton_nome");
 
 const template = "<li class=\"list-group-item\">%MESSAGE</li>";
 const messages = [];
-
 const socket = io();
+
+button_nome.onclick = () => {
+    if(input_nome.value==""){
+        console.log("non valido")
+    }
+    else{
+        socket.emit("connessione", input_nome.value)
+        input_nome.classList.add("hidden");
+        input_nome.classList.remove("visible");
+        button_nome.classList.add("hidden");
+        button_nome.classList.remove("visible");
+        input.classList.add("visible");
+        input.classList.remove("hidden");
+        button.classList.add("visible");
+        button.classList.remove("hidden");
+        chat.classList.add("visible");
+        chat.classList.remove("hidden");
+    }
+}
 
 input.onkeydown = (event) => {
   
